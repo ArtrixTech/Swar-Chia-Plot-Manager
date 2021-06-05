@@ -118,10 +118,8 @@ def get_phase_info(contents, view_settings=None, pretty_print=True):
             seconds, date_raw = match.groups()
             seconds = float(seconds)
             phase_times[phase] = pretty_print_time(int(seconds), view_settings['include_seconds_for_phase']) if pretty_print else seconds
-            
-            logging.info(f'DATERAW ---------------\n {date_raw}')
-            parsed_date = datetime.strptime(date_raw, '%b %d %H:%M:%S %Y')
-            logging.info(f'DATEPARSED ---------------\n {parsed_date}')
+            # Fri Jun  4 09:11:50 2021
+            parsed_date = datetime.strptime(date_raw, '%a %b  %d %H:%M:%S %Y')
             phase_dates[phase] = parsed_date
 
     return phase_times, phase_dates
@@ -179,6 +177,9 @@ def check_log_progress(jobs, running_work, progress_settings, notification_setti
             current_phase = max(phase_times.keys()) + 1
         work.phase_times = phase_times
         work.phase_dates = phase_dates
+
+        logging.info(f'DATEPARSED ---------------\n {phase_dates}')
+
         work.current_phase = current_phase
         work.progress = f'{progress:.2f}%'
 
