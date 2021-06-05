@@ -119,7 +119,8 @@ def get_phase_info(contents, view_settings=None, pretty_print=True):
             seconds = float(seconds)
             phase_times[phase] = pretty_print_time(int(seconds), view_settings['include_seconds_for_phase']) if pretty_print else seconds
             # Fri Jun  4 09:11:50 2021
-            parsed_date = datetime.strptime(date_raw, '%a %b  %d %H:%M:%S %Y')
+            # Jun  4 23:17:07 2021
+            parsed_date = datetime.strptime(date_raw, '%b  %d %H:%M:%S %Y')
             phase_dates[phase] = parsed_date
 
     return phase_times, phase_dates
