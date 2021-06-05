@@ -118,7 +118,10 @@ def get_phase_info(contents, view_settings=None, pretty_print=True):
             seconds, date_raw = match.groups()
             seconds = float(seconds)
             phase_times[phase] = pretty_print_time(int(seconds), view_settings['include_seconds_for_phase']) if pretty_print else seconds
+            
+            logging.info(f'DATERAW ---------------\n {date_raw}')
             parsed_date = datetime.strptime(date_raw, '%b %d %H:%M:%S %Y')
+            logging.info(f'DATEPARSED ---------------\n {parsed_date}')
             phase_dates[phase] = parsed_date
 
     return phase_times, phase_dates
