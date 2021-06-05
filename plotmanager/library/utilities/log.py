@@ -1,4 +1,5 @@
 import dateparser
+from datetime import datetime
 import logging
 import os
 import psutil
@@ -15,12 +16,12 @@ def get_log_file_name(log_directory, job, datetime):
 
 
 def _analyze_log_end_date(contents):
-    match = re.search(r'total time = ([\d\.]+) seconds\. CPU \([\d\.]+%\) [A-Za-z]+\s([^\n]+)\n', contents, flags=re.I)
+    match = re.search(r'Total time = ([\d\.]+) seconds\. CPU \([\d\.]+%\) [A-Za-z]+\s([^\n]+)\n', contents, flags=re.I)
     if not match:
         return False
     total_seconds, date_raw = match.groups()
     total_seconds = pretty_print_time(int(float(total_seconds)))
-    parsed_date = dateparser.parse(date_raw)
+    parsed_date = datetime.strptime(date_raw, '%b %d %H:%M:%S %Y')
     return dict(
         total_seconds=total_seconds,
         date=parsed_date,
