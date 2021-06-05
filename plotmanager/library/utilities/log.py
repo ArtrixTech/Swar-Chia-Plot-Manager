@@ -69,11 +69,13 @@ def get_completed_log_files(log_directory, skip=None):
 
 def analyze_log_dates(log_directory, analysis):
     files = get_completed_log_files(log_directory, skip=list(analysis['files'].keys()))
+
     for file_path, contents in files.items():
         data = _analyze_log_end_date(contents)
         if data is None:
             continue
         analysis['files'][file_path] = {'data': data, 'checked': False}
+
     analysis = _get_date_summary(analysis)
     return analysis
 

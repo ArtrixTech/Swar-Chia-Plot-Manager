@@ -224,6 +224,7 @@ def monitor_jobs_to_start(jobs, running_work, max_concurrent, max_for_phase_1, n
             for pid in job.running_work:
                 work = running_work[pid]
                 try:
+                    logging.info(f'DEBUGNOTE ---------------\n {work.phase_dates}')
                     start_early_date = work.phase_dates[job.concurrency_start_early_phase - 1]
                 except (KeyError, AttributeError):
                     start_early_date = work.datetime_start
